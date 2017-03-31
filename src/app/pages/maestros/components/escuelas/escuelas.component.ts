@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap';
 
 import { EscuelasService } from './escuelas.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -10,6 +11,8 @@ import 'style-loader!./escuelas.scss';
   templateUrl: './escuelas.html',
 })
 export class Escuelas {
+
+  @ViewChild('childModal') childModal: ModalDirective;
 
   query: string = '';
 
@@ -28,6 +31,7 @@ export class Escuelas {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
       confirmDelete: true
     },
+    mode:'external',
     columns: {
       id: {
         title: 'ID',
@@ -47,7 +51,16 @@ export class Escuelas {
       },
       email: {
         title: 'Departamento',
-        type: 'string'
+        editor: {
+          type: 'list',
+          config: {
+            list: [
+              { value: 'Risaralda', title: 'Risaralda' },
+              { value: 'Tolima', title: 'Tolima' },
+              { value: 'Caqueta', title: 'Caqueta' },
+            ],
+          },
+        },
       },
       age: {
         title: 'Categoria',
@@ -64,6 +77,14 @@ export class Escuelas {
     });
   }
 
+  showChildModal(): void {
+    this.childModal.show();
+  }
+
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
+
   onDeleteConfirm(event): void {
     if (window.confirm('Desea eliminar la fila?')) {
       event.confirm.resolve();
@@ -71,4 +92,25 @@ export class Escuelas {
       event.confirm.reject();
     }
   }
+
+  onCreate(event): void {
+    this.childModal.show();
+  }
+
+  onEdit(event): void {
+    if (window.confirm('Editar?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }
+  }
+
+  onDelete(event): void {
+    if (window.confirm('Borrar?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }
+  }
+
 }

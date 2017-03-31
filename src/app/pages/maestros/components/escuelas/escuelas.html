@@ -2,8 +2,27 @@
 
   <div class="row">
     <ba-card title="Lista Escuelas" baCardClass="with-scroll">
-      <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="onCreate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
     </ba-card>
   </div>
 
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Adicionar Escuela</h4>
+      </div>
+      <div class="modal-body">
+        Formulario para agregar escuelas!
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary confirm-btn" (click)="hideChildModal()">Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>

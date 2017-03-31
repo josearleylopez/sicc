@@ -5,6 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { routing }       from './maestros.routing';
+import { DropdownModule, ModalModule } from 'ng2-bootstrap';
 import { Maestros } from './maestros.component';
 import { Escuelas } from './components/escuelas/escuelas.component';
 import { EscuelasService } from './components/escuelas/escuelas.service';
@@ -14,6 +15,7 @@ import { EscuelasService } from './components/escuelas/escuelas.service';
     CommonModule,
     FormsModule,
     NgaModule,
+    ModalModule.forRoot(),
     routing,
     Ng2SmartTableModule,
   ],
