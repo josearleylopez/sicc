@@ -1,16 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 import { EscuelasService } from './escuelas.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Escuela } from './escuela';
 
 import 'style-loader!./escuelas.scss';
 
 @Component({
+  moduleId: 'module.id',
   selector: 'escuelas',
   templateUrl: './escuelas.html',
 })
-export class Escuelas {
+export class EscuelasComponent implements OnInit {
+
+  @Input() escuelas: Array<Escuela> = [];
+
+  escuela:Escuela = new Escuela(0,'','','','','');
 
   @ViewChild('childModal') childModal: ModalDirective;
 
@@ -31,25 +38,25 @@ export class Escuelas {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
       confirmDelete: true
     },
-    mode:'external',
+    mode: 'external',
     columns: {
       id: {
         title: 'ID',
         type: 'number'
       },
-      firstName: {
+      nombre: {
         title: 'Nombre',
         type: 'string'
       },
-      lastName: {
+      centro: {
         title: 'Centro',
         type: 'string'
       },
-      username: {
+      municipio: {
         title: 'Municipio',
         type: 'string'
       },
-      email: {
+      departamento: {
         title: 'Departamento',
         editor: {
           type: 'list',
@@ -62,19 +69,17 @@ export class Escuelas {
           },
         },
       },
-      age: {
+      categoria: {
         title: 'Categoria',
         type: 'number'
       }
     }
   };
 
+  //para trabajar con el framework ng2
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(protected service: EscuelasService) {
-    this.service.getData().then((data) => {
-      this.source.load(data);
-    });
+  constructor(protected service: EscuelasService) { //Se instancia el servicio en este caso lista de escuelas    
   }
 
   showChildModal(): void {
@@ -98,19 +103,40 @@ export class Escuelas {
   }
 
   onEdit(event): void {
-    if (window.confirm('Editar?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    this.escuela = event.data;
+    this.childModal.show();
   }
 
   onDelete(event): void {
-    if (window.confirm('Borrar?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
+    this.source.remove(event.data);
+  }
+
+  onGuardar(model: Escuela) {
+    if (model.id === 0){
+      model.id = this.source.count()+1;  
+      this.source.prepend(model);
     }
+    else{
+      console.log(model);
+      this.source.update(model,model);
+      //this.source.find(model);
+    }
+    //let v = Math.max.apply(Math, this.escuelas.map(function (o) { return o.id; }));
+    //model.id = this.source.count()+1;
+    //model.id = ++v;
+    //this.escuelas.push(model);
+    //this.source.append(model);
+    //this.source.prepend(model);
+    this.childModal.hide();
+
+  }
+
+  ngOnInit() {
+    this.service.getData().then((data) => {
+      this.source.load(data);
+      //this.escuelas = data;
+    });
+
   }
 
 }

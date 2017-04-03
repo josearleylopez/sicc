@@ -7,7 +7,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { routing }       from './maestros.routing';
 import { DropdownModule, ModalModule } from 'ng2-bootstrap';
 import { Maestros } from './maestros.component';
-import { Escuelas } from './components/escuelas/escuelas.component';
+import { Escuela } from './components/escuelas/escuela';
+import { EscuelasComponent } from './components/escuelas/escuelas.component';
+import { FormEscuelas } from './components/escuelas/formEscuelas/formEscuelas.component';
 import { EscuelasService } from './components/escuelas/escuelas.service';
 
 @NgModule({
@@ -21,11 +23,13 @@ import { EscuelasService } from './components/escuelas/escuelas.service';
   ],
   declarations: [
     Maestros,
-    Escuelas,
+    EscuelasComponent,
+    FormEscuelas
   ],
   providers: [
     EscuelasService,
   ]
 })
 export class MaestrosModule {
+  escuela:Escuela = new Escuela(100,'Nombre Escuela','Centro Escuela','Municipio','Departamento','Categoria');
 }

@@ -16,31 +16,31 @@ export class CalendarService {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
-      defaultDate: '2016-03-08',
+      defaultDate: '2017-04-08',
       selectable: true,
       selectHelper: true,
       editable: true,
       eventLimit: true,
       events: [
         {
-          title: 'All Day Event',
-          start: '2016-03-01',
+          title: 'Evento 1',
+          start: '2017-04-01',
           color: dashboardColors.silverTree
         },
         {
-          title: 'Long Event',
-          start: '2016-03-07',
-          end: '2016-03-10',
+          title: 'Evento 2',
+          start: '2017-04-07',
+          end: '2017-04-10',
           color: dashboardColors.blueStone
         },
         {
-          title: 'Dinner',
-          start: '2016-03-14T20:00:00',
+          title: 'Evento 3',
+          start: '2017-04-14T20:00:00',
           color: dashboardColors.surfieGreen
         },
         {
-          title: 'Birthday Party',
-          start: '2016-04-01T07:00:00',
+          title: 'Evento 4',
+          start: '2017-04-01T07:00:00',
           color: dashboardColors.gossip
         }
       ]

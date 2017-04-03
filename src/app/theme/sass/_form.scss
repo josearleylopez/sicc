@@ -30,6 +30,17 @@
   }
 }
 
+.form-modal {
+  label {
+    margin-bottom: 5px;
+    color:$dropdown-text;
+    font-weight: $font-normal;
+    font-size: 13px;
+  }
+}
+
+
+
 .form-group {
   label {
     margin-bottom: 5px;
@@ -38,7 +49,7 @@
     font-size: 13px;
   }
 }
-
+ 
 .form-control {
   color: $content-text;
   @include placeholderStyle($content-text, 0.7);
